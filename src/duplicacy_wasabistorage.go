@@ -46,7 +46,7 @@ func CreateWasabiStorage(
 ) (storage *WasabiStorage, err error) {
 
 	s3storage, error := CreateS3Storage(regionName, endpoint, bucketName,
-		storageDir, accessKey, secretKey, threads,
+		storageDir, accessKey, secretKey, "", threads,
 		true,  // isSSLSupported
 		false, // isMinioCompatible
 	)

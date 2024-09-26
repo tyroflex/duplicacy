@@ -21,7 +21,7 @@ type S3CStorage struct {
 
 // CreateS3CStorage creates a amazon s3 storage object.
 func CreateS3CStorage(regionName string, endpoint string, bucketName string, storageDir string,
-	accessKey string, secretKey string, threads int) (storage *S3CStorage, err error) {
+	accessKey string, secretKey string, sessionToken string, threads int) (storage *S3CStorage, err error) {
 
 	var region aws.Region
 
@@ -34,7 +34,7 @@ func CreateS3CStorage(regionName string, endpoint string, bucketName string, sto
 		region = aws.Region{Name: regionName, S3Endpoint: "https://" + endpoint}
 	}
 
-	auth := aws.Auth{AccessKey: accessKey, SecretKey: secretKey}
+	auth, _ := aws.GetAuth(accessKey, secretKey, sessionToken, time.Now().Add(30*time.Minute))
 
 	var buckets []*s3.Bucket
 	for i := 0; i < threads; i++ {

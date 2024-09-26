@@ -31,10 +31,10 @@ type S3Storage struct {
 
 // CreateS3Storage creates a amazon s3 storage object.
 func CreateS3Storage(regionName string, endpoint string, bucketName string, storageDir string,
-	accessKey string, secretKey string, threads int,
+	accessKey string, secretKey string, sessionToken string, threads int,
 	isSSLSupported bool, isMinioCompatible bool) (storage *S3Storage, err error) {
 
-	token := ""
+	token := sessionToken
 
 	auth := credentials.NewStaticCredentials(accessKey, secretKey, token)
 
